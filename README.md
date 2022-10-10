@@ -20,4 +20,4 @@ and [Blog](https://www.geertarien.com/projects/accelerated-c-exercises/)
 
 [anirudhtopiwala/Accelerated-C-Solutions](https://github.com/anirudhtopiwala/Accelerated-C-Solutions)
 
-[altugbakan/accelerated-cpp-solutions](https://github.com/altugbakan/accelerated-cpp-solutions)
+[altugbakan/accelerated-cpp-solutions(recommend)](https://github.com/altugbakan/accelerated-cpp-solutions)
