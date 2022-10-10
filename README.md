@@ -7,6 +7,6 @@ source code and more example.
 
 ## Resources
 
-[website](https://www.informit.com/)
+[website](https://www.informit.com/store/accelerated-c-plus-plus-practical-programming-by-example-9780201703535)
 
 [source code](/unix-source/README.md)
