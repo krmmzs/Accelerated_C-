@@ -1,9 +1,9 @@
 CXX = g++
 CC = g++
 
-all:		frame greet
+all:	frame greet
 
-test:		all
+test:	all
 	./greet <../data/name1
 	./frame <../data/name2
 
