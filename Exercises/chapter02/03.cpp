@@ -19,7 +19,9 @@ int main()
     const string greeting = "Hello, " + name + "!";
 
     // the number of blanks surrounding the greeting
-    const int pad = 1;
+    int pad;
+    cout << endl <<  "Please enter the amount of spacing between the frame and the greeting: ";
+    cin >> pad;
 
     // the number of rows and columns to write
     const int rows = pad * 2 + 3;
