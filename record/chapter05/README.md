@@ -51,3 +51,53 @@ that refers to the initial element of **students**, and that **students.begin() 
 the **i**th element of **students**. What is important to realize is that this latter expression gets
 its meaning from the definition of *+* on the types of **students.begin()** and **i**. In other
 words, the iterator and index types determine the meaning of *+* in this expression.
+
+## The difference between list and vector
+
+One important way in which the operations on **list**s differ from those on **vector**s is the effect of some of the operations on iterators.
+
+- **vector** support random access
+- **list** not support random access
+
+std::sort() will use random access
+so we could sort **vector** but not **list**
+but **list** have **sort()** function itself 
+
+more detail see [here](https://qr.ae/pvxM7k)
+
+## use invariant writing whlie to spilt string
+
+```cpp
+vector<string> split(const string& s) {
+    vector<string> ret;
+    typedef string::size_type string_size
+    string_size i = 0;
+    while (i != s.size()) {
+
+    }
+    
+}
+```
+
+## use insert instand of push_back to copy vector to another vector
+
+In this particular case, we are appending the elements,
+which we can think of as inserting them at the end.
+
+```cpp
+vector<string> vcat(const vector<string>& top, const vector<string>& bottom) {
+    vector<string> ret = top;
+    for (vector<string>::const_iterator it = bottom.begin(); it != bottom.end();
+        it != bottom.end()); it ++)
+        ret.push_back(*it);
+    return ret;
+}
+```
+
+```cpp
+vector<string> vcat(const vector<string>& top, const vector<string>& bottom) {
+    vector<string> ret = top;
+    ret.insert(ret.end(), bottom.begin(), bottom.end());
+    return ret;
+}
+```
