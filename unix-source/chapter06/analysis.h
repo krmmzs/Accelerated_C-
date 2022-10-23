@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "Student_info.h"
+#include "../chapter04/Student_info.h"
 
 bool did_all_hw(const Student_info& s);
 double average_analysis(const std::vector<Student_info>& students);

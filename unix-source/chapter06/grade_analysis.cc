@@ -2,14 +2,14 @@
 #include <iostream>
 
 #include "analysis.h"
-#include "Student_info.h"
+#include "../chapter04/Student_info.h"
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
 
-int main()
+int main(void)
 {
 	// students who did and didn't do all their homework
 	vector<Student_info> did, didnt;

@@ -139,3 +139,155 @@ vector<string> find_urls(const string& s) {
     return ret;
 }
 ```
+
+## empty instead of size
+
+It is a better idea to use this function to check for 
+an emptycontainer than it is to compare the **size** with 0,
+because for some kinds of containers, itmight be more efficient
+to check whether the container has any elements than to figure
+outexactly how many elements there are.
+
+more see [What is the most efficient way to check if a C++ container is empty?](https://stackoverflow.com/questions/43500633/what-is-the-most-efficient-way-to-check-if-a-c-container-is-empty)
+
+## transform
+
+```cpp
+double grade_aux(const Student_indo& s) {
+    try {
+        return grade(s);
+    } catch (domain_error) {
+        return grade(s.midterm, s.final, 0);
+    }
+}
+
+// this version works fine
+double median_analysis(const vector<Student_info>& students) {
+    vector<double> grades;
+
+    transform(students.begin(), students.end(),
+            back_inserter(grades), grade_aux);
+    return median(grades);
+}
+```
+
+## accumulate(in <numeric>)
+
+```cpp
+double average(const vector<double>& v) {
+    return accumulate(v.begin(), v.end(), 0.0) / v.size();
+}
+```
+
+## remove_copy(copy like "remove")
+
+Copies elements from the range [first, last), to another range beginning at d_first,
+omitting the elements which satisfy specific criteria. Source and destination ranges cannot overlap.
+
+```cpp
+// median of the nonzero elements of s.homework, or 0 if no such elements exist
+double optimistic_median(const Student_info& s) {
+    vector<double> nonzero;
+    remove_copy(s.homework.begin(), s.homework.end(),
+            back_inserter(nonzero), 0);
+
+    if (nonzero.empty()) {
+        return grade(s.midterm, s.final, 0);
+    } else {
+        return grade(s.midterm, s.final, median(nonzero));
+    }
+}
+```
+
+## copy_if vs remove_copy_if
+
+`copy_if` only copies elements satisfying a given predicate,
+
+`remove_copy_if` **on the other hand** copies only elements that **do not** satisfy a specified predicate.
+
+Thus the two functions complement each other, they do not do the same.
+
+
+
+```cpp
+// median of the nonzero elements of s.homework, or 0 if no such elements exist
+double optimistic_median(const Student_info& s) {
+    vector<double> nonzero;
+    copy_if(s.homework.begin(), s.homework.end(),
+            back_inserter(nonzero), [](double x) { return x != 0; });
+
+    if (nonzero.empty()) {
+        return grade(s.midterm, s.final, 0);
+    } else {
+        return grade(s.midterm, s.final, median(nonzero));
+    }
+}
+```
+
+## remove_if
+
+Removes all elements satisfying specific criteria from the
+range [first, last) and **returns a past-the-end iterator for
+the new end of the range**.(The elements are actually removed,
+but the physical size of the container is not changed, which
+causes the elements to be "lost".)
+
+```cpp
+vector<Student_info>
+extract_fails(vector<Student_info>& students) {
+    vector<Student_info> fail;
+    remove_copy_if(students.begin(), students.end(),
+            back_inserter(fail), pgrade);
+    students.erase(remove_if(students.begin(), students.end(), fgrade),
+            students.end());
+    return fail;
+}
+```
+
+<img src="/images/remove_if01.png" alt="remove_if01.png" style="zoom:70%;" />
+<img src="/images/remove_if02.png" alt="remove_if02.png" style="zoom:70%;" />
+
+if call erase after remove_if, the elements will be removed from the container.
+
+<img src="/images/remove_if03.png" alt="remove_if03.png" style="zoom:70%;" />
+
+## partition and stable_partition
+
+```cpp
+vector<Student_info>
+extract_fails(vector<Student_info>& students) {
+    vector<Student_info> fail;
+    vector<Student_info>::iterator iter = stable_partition(students.begin(), students.end(), pgrade);
+    vector<Student_info> fail(iter, students.end());
+    students.erase(iter, students.end());
+    return fail;
+}
+```
+
+<img src="/images/partition01.png" alt="partition01.png" style="zoom:60%;" />
+
+## Algorithms and containers
+
+There is a fact that is crucial to understand in using algorithms, iterators, and containers:
+
+**Algorithms act on container elements—they do not act on containers.**
+
+EX:
+remove_if is a generic function only move elements to new position,
+but does not change the size of the container.
+
+erase is not a generic function, it is a member function of the container.
+erase changes the vector by removing the sequence indicated by its arguments
+
+## iterators and container
+
+it is important to be aware of the interaction between iterators and algorithms,
+and between iterators and container operations. 
+
+EX:
+generic algorithms:
+iterators are invalidated by erase or insert operations on the container.
+
+member functions:
+can move elements aroundwithin the container, will change which element is denoted by particular iterators.
+iterators are invalidated partition or remove_if operations on the container.
