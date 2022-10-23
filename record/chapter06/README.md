@@ -179,6 +179,16 @@ double average(const vector<double>& v) {
 }
 ```
 
+string connection
+
+```cpp
+vector<string> words;
+words.push_back("hello");
+// init words with some strings
+
+string concatenated_words = accumulate(words.begin(), words.end(), string());
+```
+
 ## remove_copy(copy like "remove")
 
 Copies elements from the range [first, last), to another range beginning at d_first,
