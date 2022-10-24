@@ -11,7 +11,7 @@ using std::istream;        using std::string;
 using std::vector;         using std::map;
 
 // find all the lines that refer to each word in the input
-map<string, vector<int> >
+map<string, vector<int>>
 	xref(istream& in,
 	     vector<string> find_words(const string&) = split)
 {
