@@ -72,3 +72,41 @@ while (begin != end) {
     // do something with the element to which begin refers
     begin++;
 }
+```
+
+## Input and output iterators
+
+Why are input and output iterators separate categories from forward iterators if no standard
+container requires the distinction? One reason is that not all iterators are associated with
+containers. For example, if c is a container that supports push_back, then
+back_inserter(c) is an output iterator that meets no other iterator requirements.
+
+## Using iterators for flexibility
+
+We can be more flexible by rewriting split to take an output iterator instead of returning a
+value. In this version of the function, we'll use that iterator to write the words that we find
+Our caller will have bound the iterator to the output location where the values should be
+placed:
+
+```cpp
+template<class Out>
+void split(const string& str, Out os) {
+    typedef string:const_iterator iter;
+
+    iter i = str.begin();
+    while (i != str.end()) {
+            // ignore leading blanks
+            i = find_if(i, str.end(), not_space);
+
+            // find end of next word
+            iter j = find_if(i, str.end(), space);
+
+            // copy the character in [i, j)
+            if (i != str.end()) {
+                *os++ = string(i, j);
+            }
+
+            i = j;
+        }
+}
+```
