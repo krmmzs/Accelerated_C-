@@ -1,0 +1,6 @@
+#include <iostream>
+
+int main(void) {
+    char ch[] = "Hello";
+    std::cout << ch << std::endl;
+}
