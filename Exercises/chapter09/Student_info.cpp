@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Student_info.h"
-#include "../Chapter 04/grade.h"
+#include "../chapter04/grade.h"
 
 using std::vector;
 using std::istream;
