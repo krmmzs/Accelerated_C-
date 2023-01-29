@@ -104,6 +104,14 @@ ifstream infile(file.c_str());
 
 ## new T[] Ex
 
+Remember that not only does `new T[n]` allocate space, but it also
+initializes the elements by running the default constructor for T.
+
+If we were to use `new T[n]`, then we would be imposing a requirement on T:
+Users could create a Vec<T> only if T has a default constructor.
+
+Rules above are useful for design a class.
+
 ```cpp
 char* duplicate_chars(const char* p) {
     // allocate enough space; remember to add onre for the null
